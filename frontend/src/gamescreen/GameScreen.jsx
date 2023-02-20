@@ -5,13 +5,26 @@ export class GameScreen extends Component {
     render() {
 
         console.log(this.props.session)
+
+        return (
+            <div className={"screen"}>
+                <div className={"screenHeading"}>
+                    <h3>{"Chat"}</h3>
+                    <h4>{this.props.session.code}</h4>
+                </div>
+                {this.renderSwitch()}
+            </div>)
+
+
+    }
+
+    renderSwitch() {
+
         switch (this.props.session.game) {
 
             case "chat":
-                return (
-                    <div className={"screen"}>
-                        <Chat session={this.props.session}/>
-                    </div>)
+                return <Chat session={this.props.session}/>
+
         }
     }
 }

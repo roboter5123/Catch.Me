@@ -4,7 +4,7 @@ import {Component} from "react";
 export class Games extends Component {
     render() {
         return (
-            <div id={"games"} className={"screen"}>
+            <div id={"games"}>
                 {this.props.games.map((name) =>
                     <Game key={name} name={name} hostGame={()=>this.props.hostGame(name)}></Game>
                 )}
