@@ -1,6 +1,6 @@
 import {Component} from "react";
 
-export class PlayerScreen extends Component {
+export class JoinScreen extends Component {
 
     render() {
 
@@ -19,8 +19,7 @@ export class PlayerScreen extends Component {
         fetch("/session/"+sessionCode)
             .then((response)=> response.json())
             .catch((error)=>console.log(error.stack))
-            .then((session)=>{console.log(session)
-                return {code:session["sessionCode"], game:session["gameName"], host:false}})
+            .then((session)=>{return {code:session["sessionCode"], game:session["gameName"], role:"player"}})
             .then((session)=>this.props.joinGame(session))
     }
 }

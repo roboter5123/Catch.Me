@@ -12,7 +12,7 @@ public class Session {
     public Session(Game game, String sessionCode) {
 
         this.sessionCode = sessionCode;
-        this.gameName = game.getClass().getSimpleName();
+        this.gameName = game.getClass().getSimpleName().toLowerCase();
         this.game = game;
     }
 
