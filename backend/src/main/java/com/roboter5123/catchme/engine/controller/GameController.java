@@ -1,4 +1,4 @@
-package com.roboter5123.catchme.controller;
+package com.roboter5123.catchme.engine.controller;
 import com.roboter5123.catchme.engine.Game;
 import com.roboter5123.catchme.engine.Message;
 import com.roboter5123.catchme.engine.Sessions;

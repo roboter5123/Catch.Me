@@ -6,9 +6,13 @@ public class Session {
     private Player host;
     private List<Player> players;
     private Game game;
+    private String gameName;
+    private String sessionCode;
 
-    public Session(Game game) {
+    public Session(Game game, String sessionCode) {
 
+        this.sessionCode = sessionCode;
+        this.gameName = game.getClass().getSimpleName();
         this.game = game;
     }
 
@@ -45,5 +49,25 @@ public class Session {
     public void setGame(Game game) {
 
         this.game = game;
+    }
+
+    public String getGameName() {
+
+        return gameName;
+    }
+
+    public void setGameName(String gameName) {
+
+        this.gameName = gameName;
+    }
+
+    public String getSessionCode() {
+
+        return sessionCode;
+    }
+
+    public void setSessionCode(String sessionCode) {
+
+        this.sessionCode = sessionCode;
     }
 }

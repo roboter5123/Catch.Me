@@ -1,25 +1,69 @@
-import logo from './logo.svg';
-import './App.css';
+import {Component} from "react";
+import {HostScreen} from "./hostscreen/HostScreen";
+import {PlayerScreen} from "./playerscreen/PlayerScreen";
+import "./style.css"
+import {GameScreen} from "./GameScreen";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export default class App extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state =
+            {
+                session:
+                    {
+                        code: undefined,
+                        game: undefined,
+                        host: undefined
+                    },
+                games: [],
+                subdomain: window.location.host.split(".")[0]
+            }
+    }
+
+    componentDidMount() {
+
+        this.getGames();
+    }
+
+    render() {
+
+        if (this.state.subdomain === "host") {
+
+            return (
+                <div className="App">
+                    <HostScreen session={this.state.session} games={this.state.games}
+                                joinGame={this.joinGame.bind(this)}>
+                    </HostScreen>
+                </div>)
+
+        } else if (this.state.session.code !== undefined) {
+
+            return (
+                <div className={"App"}>
+                    <GameScreen session={this.state.session}></GameScreen>
+                </div>
+            )
+        } else {
+            return (
+                <div className="App">
+                    <PlayerScreen joinGame={this.joinGame.bind(this)}/>
+                </div>
+            );
+        }
+    }
+
+    getGames() {
+
+        fetch("/games")
+            .then((response) => response.json())
+            .then((data) => {
+                this.setState({games: data})
+            })
+    }
+
+    joinGame(session) {
+        console.log(session)
+        this.setState({session: session})
+    }
 }
-
-export default App;
