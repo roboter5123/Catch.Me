@@ -2,9 +2,8 @@ import {Component} from "react";
 import {Chat} from "./Chat";
 
 export class GameScreen extends Component {
-    render() {
 
-        console.log(this.props.session)
+    render() {
 
         return (
             <div className={"screen"}>

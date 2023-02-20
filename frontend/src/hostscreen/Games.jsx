@@ -2,11 +2,12 @@ import { thumbnails } from "../thumbnails.js"
 import {Component} from "react";
 
 export class Games extends Component {
+
     render() {
         return (
             <div id={"games"}>
                 {this.props.games.map((name) =>
-                    <Game key={name} name={name} hostGame={()=>this.props.hostGame(name)}></Game>
+                    <Game key={name} name={name} hostGame={()=>this.props.hostGame(name)}/>
                 )}
             </div>
         );
@@ -21,6 +22,4 @@ export function Game(props){
             <img src={thumbnails[props.name]} className={"gameThumbNailImage"} alt={props.name}/>
         </div>
     )
-
-
 }
