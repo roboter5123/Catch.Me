@@ -40,25 +40,26 @@ export default class App extends Component {
         this.setState({session: session})
     }
 
-    render() {
+    renderGameScreen(){
 
-        if (this.state.session.code !== undefined) {
+        return (
+            <div className={"App"}>
+                <GameScreen session={this.state.session}/>
+            </div>
+        )
+    }
 
-            return (
-                <div className={"App"}>
-                    <GameScreen session={this.state.session}/>
-                </div>
-            )
-        }
+    renderHostScreen() {
 
-        if (this.state.subdomain === "host") {
+        return (
+            <div className="App">
+                <HostScreen session={this.state.session} games={this.state.games}
+                            joinGame={this.joinGame.bind(this)}/>
+            </div>
+        )
+    }
 
-            return (
-                <div className="App">
-                    <HostScreen session={this.state.session} games={this.state.games}
-                                joinGame={this.joinGame.bind(this)}/>
-                </div>)
-        }
+    renderJoinScreen() {
 
         return (
             <div className="App">
@@ -66,4 +67,21 @@ export default class App extends Component {
             </div>
         );
     }
+
+    render() {
+
+        if (this.state.session.code !== undefined) {
+
+            return this.renderGameScreen()
+        }
+
+        if (this.state.subdomain === "host") {
+
+            return this.renderHostScreen()
+        }
+
+        return this.renderJoinScreen()
+    }
+
+
 }

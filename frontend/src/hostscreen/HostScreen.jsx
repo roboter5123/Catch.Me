@@ -22,9 +22,7 @@ export class HostScreen extends Component {
 
         fetch("/session", {method: "POST", body: gameName})
             .then((response) => response.json())
-            .then((session) => {
-                return {code: session["sessionCode"], game: session["gameName"], role: "player"}
-            })
+            .then((session) => {return {code: session["sessionCode"], game: session["gameName"], role: "player"}})
             .then((session) => this.props.joinGame(session))
 
     }
