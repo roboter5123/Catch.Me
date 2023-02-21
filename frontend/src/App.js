@@ -28,7 +28,7 @@ export default class App extends Component {
 
     getGames() {
 
-        fetch("/games")
+        fetch("catch.me.roboter5123.com/api/games")
             .then((response) => response.json())
             .then((data) => {
                 this.setState({games: data})
