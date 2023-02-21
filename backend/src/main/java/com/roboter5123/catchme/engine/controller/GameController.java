@@ -5,6 +5,7 @@ import com.roboter5123.catchme.engine.Sessions;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.messaging.simp.annotation.SubscribeMapping;
 import org.springframework.stereotype.Controller;
 
 @Controller
@@ -15,6 +16,13 @@ public class GameController {
     public GameController() {
 
         this.sessions = Sessions.getInstance();
+    }
+
+    @SubscribeMapping("/topic/abc")
+    public void joinGame(){
+
+        System.out.println("connected");
+//        return sessions.get(gameCode).getGame().getStatus();
     }
 
     @MessageMapping("/{gameCode}")
