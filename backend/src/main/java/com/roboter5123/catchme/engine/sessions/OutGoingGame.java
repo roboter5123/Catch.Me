@@ -1,13 +1,15 @@
 package com.roboter5123.catchme.engine.sessions;
-public class OutGoingSession {
+import com.roboter5123.catchme.games.Game;
+
+public class OutGoingGame {
 
     private String gameName;
     private String sessionCode;
 
-    public OutGoingSession(String sessionCode, String gameName) {
+    public OutGoingGame(Game game) {
 
-        this.sessionCode = sessionCode;
-        this.gameName = gameName;
+        this.sessionCode = game.getSessionCode();
+        this.gameName = game.getClass().getSimpleName().toLowerCase();
 
     }
 
