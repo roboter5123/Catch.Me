@@ -2,7 +2,7 @@ import {Component} from "react";
 import {Client} from '@stomp/stompjs';
 import websocket from 'websocket';
 
-Object.assign(global, { WebSocket: websocket.w3cwebsocket });
+Object.assign(global, {WebSocket: websocket.w3cwebsocket});
 
 Object.assign(global, {WebSocket});
 
@@ -11,12 +11,12 @@ export class Chat extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {connection:null}
+        this.state = {connection: null}
     }
 
     componentDidMount() {
 
-        if (this.state.connection !== null){
+        if (this.state.connection !== null) {
 
             return
         }
@@ -48,16 +48,13 @@ export class Chat extends Component {
         return client
     }
 
-    subscribe(client){
+    subscribe(client) {
 
         let sessionCode = this.props.session.code
-        client.subscribe("/topic/"+ sessionCode,(frame)=> {
-
-            document.getElementById("history").innerText = JSON.parse(frame.body).body
-        })
+        client.subscribe("/topic/" + sessionCode, (frame) => this.receiveMessage(frame))
     }
 
-    disconnect(){
+    disconnect() {
 
         this.props.disconnect()
     }
@@ -66,16 +63,42 @@ export class Chat extends Component {
 
         e.preventDefault()
         let sessionCode = this.props.session.code;
-        let message = {command: "send",args: document.getElementById("message").value}
-        console.log(message)
-        this.state.connection.publish({ destination: '/topic/'+ sessionCode, body: JSON.stringify(message)});
+        let message =
+            {
+                player:
+                    {
+                        name: ""
+                    },
+                command:
+                    {
+                        type: "add",
+                        args: [document.getElementById("message").value]
+                    }
+            }
+        this.state.connection.publish({destination: '/app/' + sessionCode, body: JSON.stringify(message)});
     }
 
-    receiveMessage(message) {
+    receiveMessage(frame) {
 
-        console.log(message)
-        let appendMessage = message.body+"<br>"
-        let history = document.getElementById("history")
-        history.append(appendMessage)
+        let chatMessage = JSON.parse(frame.body);
+
+        if (chatMessage.messages !== undefined){
+
+            chatMessage.messages.forEach((message)=> this.appendSingleMessage(message))
+            return
+        }
+
+        this.appendSingleMessage(chatMessage)
+
     }
+
+    appendSingleMessage(chatMessage){
+
+        let appendMessage = document.createElement("p");
+        appendMessage.innerText = chatMessage.player.name + ": " + chatMessage.message;
+
+        document.getElementById("history").append(appendMessage);
+    }
+
+
 }
