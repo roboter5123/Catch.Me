@@ -24,6 +24,9 @@ export class GameScreen extends Component {
             case "chat":
                 return <Chat session={this.props.session} disconnect={this.props.disconnect}/>
 
+            default:
+                return <div></div>
+
         }
     }
 }

@@ -51,7 +51,9 @@ export class Chat extends Component {
         })
         client.onWebSocketClose = this.disconnect
         client.activate()
-        this.state.connection = client;
+        let newState = this.state
+        newState.connection = client;
+        this.setState(newState);
     }
 
     setPlayer() {
