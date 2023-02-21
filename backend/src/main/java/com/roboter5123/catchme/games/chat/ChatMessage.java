@@ -14,6 +14,18 @@ public class ChatMessage implements OutGoingMessage {
         this.message = incomingMessage.getCommand().getArgs()[0];
     }
 
+    public ChatMessage() {
+
+
+    }
+
+    public ChatMessage(OutGoingJoinMessage message) {
+
+        ChatMessage chatMessage = message.getMessages().get(message.getMessages().size()-1);
+        this.player = chatMessage.getPlayer();
+        this.message= chatMessage.getMessage();
+    }
+
     public Player getPlayer() {
 
         return player;

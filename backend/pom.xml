@@ -62,6 +62,7 @@
                 </configuration>
             </plugin>
         </plugins>
+        <finalName>catchMe</finalName>
     </build>
 
 </project>

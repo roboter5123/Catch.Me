@@ -1,8 +1,9 @@
 package com.roboter5123.catchme.engine.controller;
 import com.roboter5123.catchme.configurations.GamesConfiguration;
-import com.roboter5123.catchme.engine.sessions.OutGoingSession;
-import com.roboter5123.catchme.engine.sessions.Session;
+import com.roboter5123.catchme.engine.sessions.OutGoingGame;
 import com.roboter5123.catchme.engine.sessions.Sessions;
+import com.roboter5123.catchme.games.Game;
+import com.roboter5123.catchme.games.GameFactory;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Random;
@@ -21,13 +22,13 @@ public class SessionController {
 
     @PostMapping("/session")
     @ResponseBody
-    public Session createSession(@RequestBody String sessionType){
+    public OutGoingGame createSession(@RequestBody String sessionType){
 
         String sessionCode;
         sessionCode = createNonExistentSessionCode();
-        Session session = SessionFactory.createSession(sessionType, sessionCode);
-        sessions.add(sessionCode, session);
-        return session;
+        Game game = GameFactory.createSession(sessionType, sessionCode);
+        sessions.add(sessionCode, game);
+        return game.out();
     }
 
     private String createNonExistentSessionCode() {
@@ -53,7 +54,7 @@ public class SessionController {
 
     @GetMapping("/session/{sessionCode}")
     @ResponseBody
-    public OutGoingSession lookupSession(@PathVariable String sessionCode){
+    public OutGoingGame lookupSession(@PathVariable String sessionCode){
 
         return sessions.get(sessionCode).out();
     }

@@ -1,12 +1,13 @@
 package com.roboter5123.catchme.engine.sessions;
 import com.roboter5123.catchme.engine.messages.IncomingMessage;
 import com.roboter5123.catchme.engine.messages.OutGoingMessage;
+import com.roboter5123.catchme.games.Game;
 
 import java.util.*;
 
 public class Sessions{
 
-    private final Map<String, Session> sessionMap;
+    private final Map<String, Game> sessionMap;
     private static Sessions instance;
 
     public static Sessions getInstance(){
@@ -39,12 +40,12 @@ public class Sessions{
         return sessionMap.containsKey(key);
     }
 
-    public Session add(String key, Session value) {
+    public Game add(String key, Game value) {
 
         return sessionMap.put(key, value);
     }
 
-    public Session remove(String key) {
+    public Game remove(String key) {
 
         return sessionMap.remove(key);
     }
@@ -54,7 +55,7 @@ public class Sessions{
         sessionMap.clear();
     }
 
-    public Session get(String gameCode) {
+    public Game get(String gameCode) {
 
         return sessionMap.get(gameCode);
     }
@@ -66,6 +67,6 @@ public class Sessions{
 
     public OutGoingMessage advanceSession(String gameCode, IncomingMessage message) {
 
-        return sessionMap.get(gameCode).advanceGame(message);
+        return sessionMap.get(gameCode).changeStatus(message);
     }
 }
