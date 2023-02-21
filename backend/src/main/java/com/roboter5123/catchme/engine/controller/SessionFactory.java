@@ -1,5 +1,5 @@
 package com.roboter5123.catchme.engine.controller;
-import com.roboter5123.catchme.engine.Session;
+import com.roboter5123.catchme.engine.sessions.Session;
 import com.roboter5123.catchme.games.Chat;
 
 public class SessionFactory {

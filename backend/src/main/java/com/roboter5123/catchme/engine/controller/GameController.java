@@ -1,7 +1,8 @@
 package com.roboter5123.catchme.engine.controller;
-import com.roboter5123.catchme.engine.Game;
-import com.roboter5123.catchme.engine.Message;
-import com.roboter5123.catchme.engine.Sessions;
+import com.roboter5123.catchme.games.Game;
+import com.roboter5123.catchme.engine.messages.IncomingMessage;
+import com.roboter5123.catchme.engine.sessions.Sessions;
+import com.roboter5123.catchme.engine.messages.OutGoingMessage;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
@@ -18,19 +19,17 @@ public class GameController {
         this.sessions = Sessions.getInstance();
     }
 
-    @SubscribeMapping("/topic/abc")
-    public void joinGame(){
+    @SubscribeMapping("/{gameCode}")
+    public OutGoingMessage joinGame(@DestinationVariable String gameCode){
 
-        System.out.println("connected");
-//        return sessions.get(gameCode).getGame().getStatus();
+        return sessions.joinGame(gameCode);
     }
 
     @MessageMapping("/{gameCode}")
     @SendTo("/topic/{gameCode}")
-    public Message test(Message message, @DestinationVariable String gameCode ){
+    public OutGoingMessage test(IncomingMessage incomingMessage, @DestinationVariable String gameCode ){
 
         Game game = sessions.get(gameCode).getGame();
-        game.changeStatus(message);
-        return game.getStatus();
+        return game.changeStatus(incomingMessage);
     }
 }

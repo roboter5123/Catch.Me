@@ -1,4 +1,8 @@
-package com.roboter5123.catchme.engine;
+package com.roboter5123.catchme.engine.sessions;
+import com.roboter5123.catchme.games.Game;
+import com.roboter5123.catchme.engine.Player;
+import com.roboter5123.catchme.engine.messages.OutGoingMessage;
+
 import java.util.List;
 
 public class Session {
@@ -69,5 +73,15 @@ public class Session {
     public void setSessionCode(String sessionCode) {
 
         this.sessionCode = sessionCode;
+    }
+
+    public OutGoingMessage joinGame() {
+
+        return game.joinGame();
+    }
+
+    public OutGoingSession out() {
+
+        return new OutGoingSession(sessionCode, gameName);
     }
 }

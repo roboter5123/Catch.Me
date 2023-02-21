@@ -22,7 +22,7 @@ export class GameScreen extends Component {
         switch (this.props.session.game) {
 
             case "chat":
-                return <Chat session={this.props.session}/>
+                return <Chat session={this.props.session} disconnect={this.props.disconnect}/>
 
         }
     }

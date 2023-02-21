@@ -35,16 +35,29 @@ export default class App extends Component {
             })
     }
 
+    disconnect() {
+
+        console.log("disconnected")
+        let newState = this.state
+        newState.session =
+            {
+                code: undefined,
+                game: undefined,
+                role: undefined
+            }
+        this.setState(newState)
+    }
+
     joinGame(session) {
         console.log(session)
         this.setState({session: session})
     }
 
-    renderGameScreen(){
+    renderGameScreen() {
 
         return (
             <div className={"App"}>
-                <GameScreen session={this.state.session}/>
+                <GameScreen session={this.state.session} disconnect={this.disconnect.bind(this)}/>
             </div>
         )
     }

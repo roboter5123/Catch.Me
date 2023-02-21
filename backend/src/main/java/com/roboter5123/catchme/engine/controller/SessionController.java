@@ -1,10 +1,10 @@
 package com.roboter5123.catchme.engine.controller;
-import com.roboter5123.catchme.engine.Session;
-import com.roboter5123.catchme.engine.Sessions;
+import com.roboter5123.catchme.configurations.GamesConfiguration;
+import com.roboter5123.catchme.engine.sessions.OutGoingSession;
+import com.roboter5123.catchme.engine.sessions.Session;
+import com.roboter5123.catchme.engine.sessions.Sessions;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 @RestController
@@ -53,17 +53,15 @@ public class SessionController {
 
     @GetMapping("/session/{sessionCode}")
     @ResponseBody
-    public Session lookupSession(@PathVariable String sessionCode){
+    public OutGoingSession lookupSession(@PathVariable String sessionCode){
 
-        return sessions.get(sessionCode);
+        return sessions.get(sessionCode).out();
     }
 
     @GetMapping("games")
     @ResponseBody
-    public List<String> lookupGames(){
+    public String[] lookupGames(){
 
-        List<String> games = new ArrayList<>();
-        games.add("chat");
-        return games;
+        return GamesConfiguration.games;
     }
 }

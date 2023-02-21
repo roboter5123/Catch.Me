@@ -34,16 +34,6 @@ export class Chat extends Component {
         );
     }
 
-    sendMessage(e) {
-
-        e.preventDefault()
-        let sessionCode = this.props.session.code;
-        let message = document.getElementById("message").value;
-        this.state.connection.publish({ destination: '/topic/'+sessionCode, body: message });
-    }
-
-
-
     initializeChat() {
 
         const client = new Client({
@@ -53,6 +43,7 @@ export class Chat extends Component {
         })
 
         client.onConnect = this.subscribe.bind(this, client)
+        client.onWebSocketClose = this.disconnect
         client.activate()
         return client
     }
@@ -60,11 +51,29 @@ export class Chat extends Component {
     subscribe(client){
 
         let sessionCode = this.props.session.code
-        client.subscribe("/topic/"+ sessionCode,this.receiveMessage)
+        client.subscribe("/topic/"+ sessionCode,(frame)=> {
+
+            document.getElementById("history").innerText = JSON.parse(frame.body).body
+        })
+    }
+
+    disconnect(){
+
+        this.props.disconnect()
+    }
+
+    sendMessage(e) {
+
+        e.preventDefault()
+        let sessionCode = this.props.session.code;
+        let message = {command: "send",args: document.getElementById("message").value}
+        console.log(message)
+        this.state.connection.publish({ destination: '/topic/'+ sessionCode, body: JSON.stringify(message)});
     }
 
     receiveMessage(message) {
 
+        console.log(message)
         let appendMessage = message.body+"<br>"
         let history = document.getElementById("history")
         history.append(appendMessage)

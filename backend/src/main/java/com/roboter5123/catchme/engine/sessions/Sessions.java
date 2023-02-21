@@ -1,4 +1,6 @@
-package com.roboter5123.catchme.engine;
+package com.roboter5123.catchme.engine.sessions;
+import com.roboter5123.catchme.engine.messages.OutGoingMessage;
+
 import java.util.*;
 
 public class Sessions{
@@ -21,12 +23,10 @@ public class Sessions{
         this.sessionMap = new HashMap<>();
     }
 
-
     public int size() {
 
         return sessionMap.size();
     }
-
 
     public boolean isEmpty() {
 
@@ -56,5 +56,10 @@ public class Sessions{
     public Session get(String gameCode) {
 
         return sessionMap.get(gameCode);
+    }
+
+    public OutGoingMessage joinGame(String gameCode) {
+
+        return sessionMap.get(gameCode).joinGame();
     }
 }
