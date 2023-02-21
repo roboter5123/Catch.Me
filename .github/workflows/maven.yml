@@ -36,7 +36,7 @@ jobs:
       uses: mr-smithers-excellent/docker-build-push@v5
       with:
         image: roboter5123/catch.me.backend
-        tags: daily
+        tags: latest
         registry: docker.io
         dockerfile: ./backend/Dockerfile
         username: ${{ secrets.DOCKER_USERNAME }}
