@@ -1,4 +1,5 @@
 package com.roboter5123.catchme.engine.sessions;
+import com.roboter5123.catchme.engine.messages.IncomingMessage;
 import com.roboter5123.catchme.games.Game;
 import com.roboter5123.catchme.engine.Player;
 import com.roboter5123.catchme.engine.messages.OutGoingMessage;
@@ -83,5 +84,10 @@ public class Session {
     public OutGoingSession out() {
 
         return new OutGoingSession(sessionCode, gameName);
+    }
+
+    public OutGoingMessage advanceGame(IncomingMessage message) {
+
+        return game.changeStatus(message);
     }
 }

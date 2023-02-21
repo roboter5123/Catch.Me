@@ -1,11 +1,12 @@
 package com.roboter5123.catchme.engine.sessions;
+import com.roboter5123.catchme.engine.messages.IncomingMessage;
 import com.roboter5123.catchme.engine.messages.OutGoingMessage;
 
 import java.util.*;
 
 public class Sessions{
 
-    private Map<String, Session> sessionMap;
+    private final Map<String, Session> sessionMap;
     private static Sessions instance;
 
     public static Sessions getInstance(){
@@ -61,5 +62,10 @@ public class Sessions{
     public OutGoingMessage joinGame(String gameCode) {
 
         return sessionMap.get(gameCode).joinGame();
+    }
+
+    public OutGoingMessage advanceSession(String gameCode, IncomingMessage message) {
+
+        return sessionMap.get(gameCode).advanceGame(message);
     }
 }

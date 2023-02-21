@@ -1,27 +1,29 @@
 package com.roboter5123.catchme.engine.messages;
+import com.roboter5123.catchme.engine.Player;
+
 public class IncomingMessage {
 
-    private String command;
+    private Player player;
 
-    private String args;
+    private Command command;
 
-    public String getCommand() {
+    public Player getPlayer() {
+
+        return player;
+    }
+
+    public void setPlayer(Player player) {
+
+        this.player = player;
+    }
+
+    public Command getCommand() {
 
         return command;
     }
 
-    public void setCommand(String command) {
+    public void setCommand(Command command) {
 
         this.command = command;
-    }
-
-    public String getArgs() {
-
-        return args;
-    }
-
-    public void setArgs(String args) {
-
-        this.args = args;
     }
 }
