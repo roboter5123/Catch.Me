@@ -14,35 +14,59 @@ export class Chat extends Component {
         this.state = {connection:null}
     }
 
+    componentDidMount() {
+
+        if (this.state.connection !== null){
+
+            return
+        }
+
+        this.setState({connection: this.initializeChat()})
+    }
+
     render() {
 
         return (
-            <div></div>
+            <form>
+                <div id={"history"}></div>
+                <input id={"message"} type={"text"}/> <input type={"button"} onClick={this.sendMessage.bind(this)}/>
+            </form>
         );
     }
 
-    componentDidMount() {
+    sendMessage(e) {
 
-        this.initializeChat()
+        e.preventDefault()
+        let sessionCode = this.props.session.code;
+        let message = document.getElementById("message").value;
+        this.state.connection.publish({ destination: '/topic/'+sessionCode, body: message });
     }
+
+
 
     initializeChat() {
 
-        let sessionCode = this.props.session.code
         const client = new Client({
 
             brokerURL: "ws://localhost:8080/stomp-endpoint",
             debug: (str) => console.log(str)
         })
 
-        client.onConnect = subscribe
+        client.onConnect = this.subscribe.bind(this, client)
         client.activate()
-        this.state.connection = client
+        return client
+    }
 
+    subscribe(client){
 
-        function subscribe(){
+        let sessionCode = this.props.session.code
+        client.subscribe("/topic/"+ sessionCode,this.receiveMessage)
+    }
 
-            client.subscribe("/topic/abc",(msg) => console.log(msg))
-        }
+    receiveMessage(message) {
+
+        let appendMessage = message.body+"<br>"
+        let history = document.getElementById("history")
+        history.append(appendMessage)
     }
 }
