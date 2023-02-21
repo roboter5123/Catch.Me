@@ -3,7 +3,7 @@ import {HostScreen} from "./hostscreen/HostScreen";
 import {JoinScreen} from "./joinscreen/JoinScreen";
 import "./style.css"
 import {GameScreen} from "./gamescreen/GameScreen";
-import {BrowserRouter, Route, Router, Routes} from "react-router-dom";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
 
 export default class App extends Component {
 
