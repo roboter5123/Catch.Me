@@ -35,7 +35,7 @@ jobs:
     - name: Build & push Docker image
       uses: mr-smithers-excellent/docker-build-push@v5
       with:
-        image: roboter5123/catch.me
+        image: roboter5123/catch.me.backend
         tags: daily
         registry: docker.io
         dockerfile: ./backend/Dockerfile
