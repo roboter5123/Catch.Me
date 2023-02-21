@@ -27,7 +27,10 @@ jobs:
         cache-dependency-path: ./frontend
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: cd frontend
+
     - run: npm ci
+      working-directory: ./frontend
     - run: npm run build --if-present
+      working-directory: ./frontend
     - run: npm test
+      working-directory: ./frontend
