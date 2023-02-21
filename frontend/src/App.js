@@ -3,6 +3,7 @@ import {HostScreen} from "./hostscreen/HostScreen";
 import {JoinScreen} from "./joinscreen/JoinScreen";
 import "./style.css"
 import {GameScreen} from "./gamescreen/GameScreen";
+import {BrowserRouter, Route, Router, Routes} from "react-router-dom";
 
 export default class App extends Component {
 
@@ -17,7 +18,7 @@ export default class App extends Component {
                         role: undefined
                     },
                 games: [],
-                subdomain: window.location.host.split(".")[window.location.host.split(".").length-1]
+                subdomain: window.location.host.split(".")[window.location.host.split(".").length - 1]
             }
     }
 
@@ -37,7 +38,6 @@ export default class App extends Component {
 
     disconnect() {
 
-        console.log("disconnected")
         let newState = this.state
         newState.session =
             {
@@ -49,7 +49,6 @@ export default class App extends Component {
     }
 
     joinGame(session) {
-        console.log(session)
         this.setState({session: session})
     }
 
@@ -62,25 +61,6 @@ export default class App extends Component {
         )
     }
 
-    renderHostScreen() {
-
-        return (
-            <div className="App">
-                <HostScreen session={this.state.session} games={this.state.games}
-                            joinGame={this.joinGame.bind(this)}/>
-            </div>
-        )
-    }
-
-    renderJoinScreen() {
-
-        return (
-            <div className="App">
-                <JoinScreen joinGame={this.joinGame.bind(this)}/>
-            </div>
-        );
-    }
-
     render() {
 
         if (this.state.session.code !== undefined) {
@@ -88,12 +68,19 @@ export default class App extends Component {
             return this.renderGameScreen()
         }
 
-        if (this.state.subdomain === "host") {
-
-            return this.renderHostScreen()
-        }
-
-        return this.renderJoinScreen()
+        return (
+            <BrowserRouter>
+                <Routes>
+                    <Route path={"/host"} element={<div className="App">
+                        <HostScreen session={this.state.session} games={this.state.games}
+                                    joinGame={this.joinGame.bind(this)}/>
+                    </div>}/>
+                    <Route path={"/"} element={<div className="App">
+                        <JoinScreen joinGame={this.joinGame.bind(this)}/>
+                    </div>}/>
+                </Routes>
+            </BrowserRouter>
+        )
     }
 
 
