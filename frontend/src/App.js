@@ -17,7 +17,7 @@ export default class App extends Component {
                         role: undefined
                     },
                 games: [],
-                subdomain: window.location.host.split(".")[0]
+                subdomain: window.location.host.split(".")[window.location.host.split(".").length-1]
             }
     }
 
