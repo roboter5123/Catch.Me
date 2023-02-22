@@ -2,8 +2,7 @@
 FROM node:16-alpine as build
 WORKDIR /app
 ENV PATH /app/node_modules/.bin:$PATH
-COPY frontend/package.json ./
-COPY frontend/package-lock.json ./
+COPY frontend/ ./
 RUN npm ci --silent
 RUN npm install react-scripts@3.4.1 -g --silent
 COPY . ./
