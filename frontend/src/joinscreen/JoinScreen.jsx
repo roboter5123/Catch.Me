@@ -1,5 +1,6 @@
 import {Component} from "react";
 import {Link} from "react-router-dom";
+import {https} from "../configurations/ApiUrl";
 
 export class JoinScreen extends Component {
 
@@ -25,7 +26,7 @@ export class JoinScreen extends Component {
 
         e.preventDefault()
         let sessionCode = e.target["gameCode"].value
-        fetch("https://catch.me.roboter5123.com/api/session/" + sessionCode)
+        fetch(https + "session/" + sessionCode)
             .then((response) => response.json())
             .catch((error) => console.log(error.stack))
             .then((session) => {

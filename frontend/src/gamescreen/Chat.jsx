@@ -1,6 +1,7 @@
 import {Component} from "react";
 import {Client} from '@stomp/stompjs';
 import websocket from 'websocket';
+import {wss} from "../configurations/ApiUrl";
 
 Object.assign(global, {WebSocket: websocket.w3cwebsocket});
 
@@ -46,7 +47,7 @@ export class Chat extends Component {
 
         const client = new Client({
 
-            brokerURL: "wss://catch.me.roboter5123.com/api/stomp-endpoint",
+            brokerURL: wss+"stomp-endpoint",
             debug: (str) => console.log(str)
         })
         client.onWebSocketClose = this.disconnect

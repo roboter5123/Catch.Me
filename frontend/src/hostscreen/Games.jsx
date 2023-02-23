@@ -1,4 +1,4 @@
-import { thumbnails } from "../thumbnails.js"
+import { thumbnails } from "../configurations/thumbnails.js"
 import {Component} from "react";
 
 export class Games extends Component {

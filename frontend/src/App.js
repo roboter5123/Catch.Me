@@ -4,6 +4,7 @@ import {JoinScreen} from "./joinscreen/JoinScreen";
 import "./style.css"
 import {GameScreen} from "./gamescreen/GameScreen";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
+import {https} from "./configurations/ApiUrl";
 
 export default class App extends Component {
 
@@ -18,7 +19,6 @@ export default class App extends Component {
                         role: undefined
                     },
                 games: [],
-                subdomain: window.location.host.split(".")[window.location.host.split(".").length - 1]
             }
     }
 
@@ -29,7 +29,7 @@ export default class App extends Component {
 
     getGames() {
 
-        fetch("https://catch.me.roboter5123.com/api/games")
+        fetch(https + "games")
             .then((response) => response.json())
             .then((data) => {
                 this.setState({games: data})
