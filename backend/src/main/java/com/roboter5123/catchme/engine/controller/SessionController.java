@@ -21,6 +21,7 @@ public class SessionController {
     }
 
     @PostMapping("/session")
+    @CrossOrigin()
     @ResponseBody
     public OutGoingGame createSession(@RequestBody String sessionType){
 
@@ -53,6 +54,7 @@ public class SessionController {
     }
 
     @GetMapping("/session/{sessionCode}")
+    @CrossOrigin()
     @ResponseBody
     public OutGoingGame lookupSession(@PathVariable String sessionCode){
 
@@ -60,6 +62,7 @@ public class SessionController {
     }
 
     @GetMapping("games")
+    @CrossOrigin()
     @ResponseBody
     public String[] lookupGames(){
 
