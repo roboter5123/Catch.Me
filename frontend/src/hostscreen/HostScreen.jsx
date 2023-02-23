@@ -20,7 +20,7 @@ export class HostScreen extends Component {
 
     hostGame(gameName) {
 
-        fetch("catch.me.roboter5123.com/api/session", {method: "POST", body: gameName})
+        fetch("https://catch.me.roboter5123.com/api/session", {method: "POST", body: gameName})
             .then((response) => response.json())
             .then((session) => {return {code: session["sessionCode"], game: session["gameName"], role: "player"}})
             .then((session) => this.props.joinGame(session))

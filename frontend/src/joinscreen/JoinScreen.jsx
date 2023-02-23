@@ -25,7 +25,7 @@ export class JoinScreen extends Component {
 
         e.preventDefault()
         let sessionCode = e.target["gameCode"].value
-        fetch("catch.me.roboter5123.com/api/session/" + sessionCode)
+        fetch("https://catch.me.roboter5123.com/api/session/" + sessionCode)
             .then((response) => response.json())
             .catch((error) => console.log(error.stack))
             .then((session) => {

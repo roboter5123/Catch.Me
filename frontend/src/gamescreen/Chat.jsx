@@ -46,7 +46,7 @@ export class Chat extends Component {
 
         const client = new Client({
 
-            brokerURL: "ws://catch.me.roboter5123.com/api/stomp-endpoint",
+            brokerURL: "wss://catch.me.roboter5123.com/api/stomp-endpoint",
             debug: (str) => console.log(str)
         })
         client.onWebSocketClose = this.disconnect
