@@ -1,2 +1,4 @@
 
 .idea/sonarlint/issuestore/
+
+frontend/src/configurations/ApiUrl.js
